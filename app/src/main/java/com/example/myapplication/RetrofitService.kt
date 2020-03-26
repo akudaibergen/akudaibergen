@@ -8,26 +8,27 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 object RetrofitService {
 
     const val BASE_URL = "https://jsonplaceholder.typicode.com/"
 
-    fun getPostApi(): PostApi {
+    fun getMovieApi(): MovieApi {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke())
             .build()
-        return retrofit.create(PostApi::class.java)
+        return retrofit.create(MovieApi::class.java)
     }
 }
 
-interface PostApi {
+interface MovieApi {
 
     @GET("posts")
-    fun getPostList(): Call<List<Post>>
+    fun getMovieList(): Call<List<Movie>>
 
-    @GET("posts")
-    fun getPostCoroutine(): Deferred<List<Post>>
+    @GET("posts/{id}")
+    fun getMovieById(@Path("id") id: Int): Call<Movie>
 }
