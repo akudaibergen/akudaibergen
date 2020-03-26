@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity(), PostAdapter.RecyclerViewItemClick {
 
     lateinit var recyclerView: RecyclerView
 
+//    to check branch
+
     private var postAdapter: PostAdapter? = null
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
     lateinit var  bottomNavigationView: BottomNavigationView
