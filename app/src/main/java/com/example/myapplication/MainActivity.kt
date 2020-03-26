@@ -3,70 +3,108 @@ package com.example.myapplication
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.ArrayList
 
-class MainActivity : AppCompatActivity(), PostAdapter.RecyclerViewItemClick {
+class MainActivity : AppCompatActivity(){
+    lateinit internal var pager: ViewPager
+    private var toolbar: Toolbar? = null
+    //private var prevMenuItem: MenuItem? = null
+    private var bottomNavigationView: BottomNavigationView? = null
+    internal var list: MutableList<Fragment> = ArrayList()
 
-    lateinit var recyclerView: RecyclerView
 
-    private var postAdapter: PostAdapter? = null
-    lateinit var swipeRefreshLayout: SwipeRefreshLayout
-    lateinit var  bottomNavigationView: BottomNavigationView
+    internal var pagefragment = MainFragment()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
 
-
-        recyclerView = findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-
-        swipeRefreshLayout=findViewById(R.id.swipeRefreshLayout)
-        swipeRefreshLayout.setOnRefreshListener {
-            postAdapter?.clearAll()
-            getPosts()
-        }
-
-        postAdapter = PostAdapter(itemClickListener = this)
-        recyclerView.adapter = postAdapter
         bottomNavigationView = findViewById(R.id.bottom)
 
-        getPosts()
+        toolbar = findViewById(R.id.toolbar)//toolbar
+        setSupportActionBar(toolbar)
+//        supportActionBar!!.setDisplayShowTitleEnabled(true)
+//        supportActionBar!!.setDisplayShowHomeEnabled(true)
+
+        list.add(pagefragment)//adding fragments to list
+        //list.add(fragment)
+        pager = findViewById(R.id.viewPager)//find pager
+        //pager.setSwipeable(false)
+        val pagerAdapter = CustomPagerAdapter(supportFragmentManager, list)//adapter for pager
+        pager.setAdapter(pagerAdapter)
+
+
+//        this.bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+//            when (item.itemId) {
+//                R.id.main -> {
+//                    pager.setCurrentItem(0, false)
+////                    bottomNavigationView.menu.findItem(R.id.navigation_home)
+////                        .setIcon(R.drawable.ic_home)
+////                    bottomNavigationView.menu.findItem(R.id.navigation_likes)
+////                        .setIcon(R.drawable.ic_heart)
+//                }
+//                R.id.Likes -> {
+////                    pager.setCurrentItem(1, false)
+////                    item.setIcon(R.drawable.ic_favorite)
+//                }
+//                R.id.Profile -> {
+////                    pager.setCurrentItem(1, false)
+////                    item.setIcon(R.drawable.ic_favorite)
+//                }
+//            }
+//            false
+//        }
+//
+//
+//        pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+//            override fun onPageScrolled(
+//                position: Int,
+//                positionOffset: Float,
+//                positionOffsetPixels: Int
+//            ) {
+//
+//            }
+//
+//            override fun onPageSelected(position: Int) {
+//                if (prevMenuItem != null)
+//                    prevMenuItem.setChecked(false)
+//                else
+//                    bottomNavigationView.menu.getItem(0).isChecked = false
+//
+//                bottomNavigationView.menu.getItem(position).isChecked = true
+//                prevMenuItem = bottomNavigationView.menu.getItem(position)
+//            }
+//
+//            override fun onPageScrollStateChanged(state: Int) {
+//
+//            }
+//        })
+
+
     }
 
-    override fun itemClick(position: Int, item: Post) {
-        Toast.makeText(this, item.title, Toast.LENGTH_SHORT).show()
+
+
 
 
     }
 
-    private fun getPosts() {
-        swipeRefreshLayout.isRefreshing=true
-        RetrofitService.getPostApi().getPostList().enqueue(object : Callback<List<Post>> {
-            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
-        swipeRefreshLayout.isRefreshing=false
-            }
 
-            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
-                Log.d("My_post_list", response.body().toString())
-                if(response.isSuccessful){
-                    val list = response.body()
-                    postAdapter?.list = list
-                    postAdapter?.notifyDataSetChanged()
-                }
-                swipeRefreshLayout.isRefreshing=false
-            }
-        })
-    }
 
 //    private fun getPost2() {
 //        uiScope.launch {
@@ -77,5 +115,5 @@ class MainActivity : AppCompatActivity(), PostAdapter.RecyclerViewItemClick {
 //            postAdapter?.notifyDataSetChanged()
 //        }
 //    }
-}
+
 
