@@ -18,7 +18,7 @@ class MovieDetailActivity : AppCompatActivity() {
     private lateinit var tvGenre: TextView
     private lateinit var tvReleaseDate: TextView
     private lateinit var tvImage: ImageView
-    private lateinit var tvBody: TextView
+    private lateinit var tvDescription: TextView
     private lateinit var tvYearOfMovie: TextView
     private lateinit var tvActors: TextView
     private lateinit var progressBar: ProgressBar
@@ -32,7 +32,7 @@ class MovieDetailActivity : AppCompatActivity() {
         tvGenre = findViewById(R.id.genreOfMovie)
         tvReleaseDate = findViewById(R.id.releaseDateOfMovie)
         tvImage = findViewById(R.id.imageOfMovie)
-        tvBody = findViewById(R.id.bodyOfMovie)
+        tvDescription = findViewById(R.id.descriptionOfMovie)
         tvYearOfMovie = findViewById(R.id.yearOfMovie)
         tvActors = findViewById(R.id.actorsOfMovie)
         progressBar = findViewById(R.id.progressBar)
@@ -51,7 +51,11 @@ class MovieDetailActivity : AppCompatActivity() {
                 val movie = response.body()
                 if(movie != null){
                     tvTitle.setText(movie.title)
-                    tvBody.setText(movie.body)
+                    tvGenre.setText(movie.genre)
+                    tvReleaseDate.setText(movie.releaseDate)
+                    tvDescription.setText(movie.description)
+                    tvYearOfMovie.setText(movie.year)
+                    tvActors.setText(movie.actors)
 
                 }
             }

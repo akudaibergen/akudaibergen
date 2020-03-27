@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="100dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +52,7 @@
         app:srcCompat="@drawable/ic_launcher_foreground" />
 
     <TextView
-        android:id="@+id/bodyOfMovie"
+        android:id="@+id/descriptionOfMovie"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -73,7 +73,7 @@
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bodyOfMovie" />
+        app:layout_constraintTop_toBottomOf="@+id/descriptionOfMovie" />
 
     <TextView
         android:id="@+id/actorsOfMovie"
@@ -97,5 +97,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:background="@drawable/ikonka"
+        android:layout_height="25dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_width="25dp"
+        android:layout_marginBottom="13dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/descriptionOfMovie"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toEndOf="@+id/releaseDateOfMovie"
+        app:layout_constraintTop_toBottomOf="@+id/genreOfMovie" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
