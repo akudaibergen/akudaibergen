@@ -1,7 +1,6 @@
 package com.example.myapplication.api;
 
 import com.example.myapplication.model.Movie;
-import com.example.myapplication.model.MovieResponse;
 
 import java.util.List;
 
@@ -15,4 +14,7 @@ public interface Service {
 
 @GET("movie/top_rated")
 Call<List<Movie>> getTopRatedMovies(@Query("api_key") String apiKey);
+
+@GET("movie/id")
+    Call<Movie> getMovieById(@Query("api_key") String apiKey);
 }
