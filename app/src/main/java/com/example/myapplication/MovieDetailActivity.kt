@@ -50,8 +50,8 @@ class MovieDetailActivity : AppCompatActivity() {
                 progressBar.visibility = View.GONE
                 val movie = response.body()
                 if(movie != null){
-                    tvTitle = movie.title
-                    tvBody = movie.body
+                    tvTitle.setText(movie.title)
+                    tvBody.setText(movie.body)
 
                 }
             }
