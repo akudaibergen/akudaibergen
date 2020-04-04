@@ -13,11 +13,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity(), PostAdapter.RecyclerViewItemClick {
+class MainActivity : AppCompatActivity(), MovieAdapter.RecyclerViewItemClick {
 
     lateinit var recyclerView: RecyclerView
 
-    private var postAdapter: PostAdapter? = null
+    private var postAdapter: MovieAdapter? = null
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
     lateinit var  bottomNavigationView: BottomNavigationView
 
@@ -36,14 +36,14 @@ class MainActivity : AppCompatActivity(), PostAdapter.RecyclerViewItemClick {
             getPosts()
         }
 
-        postAdapter = PostAdapter(itemClickListener = this)
+        postAdapter = MovieAdapter(itemClickListener = this)
         recyclerView.adapter = postAdapter
         bottomNavigationView = findViewById(R.id.bottom)
 
         getPosts()
     }
 
-    override fun itemClick(position: Int, item: Post) {
+    override fun itemClick(position: Int, item: Movie) {
         Toast.makeText(this, item.title, Toast.LENGTH_SHORT).show()
 
 
@@ -51,12 +51,12 @@ class MainActivity : AppCompatActivity(), PostAdapter.RecyclerViewItemClick {
 
     private fun getPosts() {
         swipeRefreshLayout.isRefreshing=true
-        RetrofitService.getPostApi().getPostList().enqueue(object : Callback<List<Post>> {
-            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
+        RetrofitService.getMovieApi().getMovieList().enqueue(object : Callback<List<Movie>> {
+            override fun onFailure(call: Call<List<Movie>>, t: Throwable) {
         swipeRefreshLayout.isRefreshing=false
             }
 
-            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
+            override fun onResponse(call: Call<List<Movie>>, response: Response<List<Movie>>) {
                 Log.d("My_post_list", response.body().toString())
                 if(response.isSuccessful){
                     val list = response.body()

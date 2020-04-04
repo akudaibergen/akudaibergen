@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class PostAdapter (
-    var list: List<Post>? = null,
+class MovieAdapter (
+    var list: List<Movie>? = null,
     val itemClickListener: RecyclerViewItemClick? = null
-) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
+) : RecyclerView.Adapter<MovieAdapter.PostViewHolder>() {
 
         override fun onCreateViewHolder(p0: ViewGroup, p1: Int): PostViewHolder {
             val view = LayoutInflater.from(p0.context).inflate(R.layout.item_post, p0, false)
@@ -24,20 +24,19 @@ class PostAdapter (
         }
 
     fun clearAll(){
-        (list as? ArrayList<Post>)?.clear()
+        (list as? ArrayList<Movie>)?.clear()
                 notifyDataSetChanged()
     }
 
         inner class PostViewHolder(val view: View): RecyclerView.ViewHolder(view) {
 
-            fun bind(post: Post?) {
+            fun bind(post: Movie?) {
                 val tvTitle = view.findViewById<TextView>(R.id.tvTitle)
                 val tvPostId = view.findViewById<TextView>(R.id.tvPostId)
                 val tvUserId = view.findViewById<TextView>(R.id.tvUserId)
 
                 tvTitle.text = post?.title
                 tvPostId.text = post?.id.toString()
-                tvUserId.text = post?.userId.toString()
 
                 view.setOnClickListener {
                     itemClickListener?.itemClick(adapterPosition, post!!)
@@ -47,6 +46,6 @@ class PostAdapter (
 
         interface RecyclerViewItemClick {
 
-            fun itemClick(position: Int, item: Post)
+            fun itemClick(position: Int, item: Movie)
         }
     }
